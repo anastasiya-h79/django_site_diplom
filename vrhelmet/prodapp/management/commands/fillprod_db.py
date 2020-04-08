@@ -6,9 +6,9 @@ from prodapp.models import Category, Helmets
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        #Category.objects.all().delete()
+        #Helmets.objects.all().delete()
 
-        #Category.objects.create(name='автономные VR-шлемы')
-        #Category.objects.create(name='VR-шлемы для ПК и консолей')
 
         categ = Category.objects.create(name='автономные VR-шлемы')
 
