@@ -56,7 +56,7 @@ ROOT_URLCONF = 'vrhelmet.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +120,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+MEDIA_URL = '/media/'   # по какому адресу джанго б. брать медиа
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # куда джанго б. грузить медиа
+
+#письмо уходит в консоль
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#письмо отправляется и хранится как файл - не сработало
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '/tmp/emails'

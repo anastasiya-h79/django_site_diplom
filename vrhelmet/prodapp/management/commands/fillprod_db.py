@@ -17,6 +17,7 @@ class Command(BaseCommand):
                                price='20 700р',
                                stock='Достаточно',
                                guarantee='12 месяцев',
+                               text='Широкий угол обзора. Качественное пространственное звучание',
                                category=categ)
 
         Helmets.objects.create(name='Автономный шлем HTC Vive Focus Plus',
@@ -24,6 +25,7 @@ class Command(BaseCommand):
                                price='82 900р',
                                stock='Достаточно',
                                guarantee='12 месяцев',
+                               text='Идеально для шоу-румов, VR конференций и обучающих тренингов',
                                category=categ)
 
         categ = Category.objects.create(name='VR-шлемы для ПК и консолей')
@@ -33,6 +35,7 @@ class Command(BaseCommand):
                                stock='Много',
                                guarantee='2 года',
                                sale='15%',
+                               text='Новое поколение игровых гарнитур на базе ПК',
                                category=categ)
 
         Helmets.objects.create(name='Шлем виртуальной реальности HTC Vive',
@@ -41,6 +44,7 @@ class Command(BaseCommand):
                                stock='Под заказ',
                                guarantee='12 месяцев',
                                sale='10%',
+                               text='Максимально четкое изображение, даже при низком ФПС',
                                category=categ)
 
 
