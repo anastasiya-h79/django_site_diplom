@@ -13,8 +13,9 @@ class Category(models.Model):       #этот механизм включает 
 
 class Helmets(models.Model):
     name = models.CharField(max_length=64, unique=True)
+    text = models.CharField(max_length=84, default='Новое поколение игровых гарнитур')
     description = models.TextField(blank=True)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(upload_to='helmets', null=True, blank=True)
     price = models.CharField(max_length=16)
     stock = models.CharField(max_length=16)   #срок поставки
     guarantee = models.CharField(max_length=16, blank=True)
