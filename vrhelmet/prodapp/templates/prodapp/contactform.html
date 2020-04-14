@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 
-
+ <!-- Page Heading/Breadcrumbs -->
+    {% block title %}
+    Контакты
+    {% endblock %}
   <!-- Page Content -->
   <div class="container">
 
-    <!-- Page Heading/Breadcrumbs -->
-    {% block title %}
-    <h1 class="mt-4 mb-3">Contact
-      <small>Subheading</small>
-    </h1>
-    {% endblock %}
 
 
     {% block content %}
@@ -52,26 +49,41 @@
 
     <!-- Contact Form -->
     <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-    <div class="row">
+
+
+
+<div class="row">
       <!--<div class="col-lg-8 col-md-10 mx-auto"> -->
-        <div class="col-lg-8 col-md-10 mx-auto"> <!-- было  <div class="col-lg-8 mb-4 "> чтобы поместить кнопку под форму подключила этот class, взяла у Л-->
+        <div class="col-lg-8 col-md-10 mx-auto">  <!--было  <div class="col-lg-8 mb-4 "> чтобы поместить кнопку под форму подключила этот class, взяла у Л-->
         <div class="col-lg-8 mb-4 ">
           <h3>Send us a Message</h3>
-        <form method="post" id="contactForm">
+        <form method="post" enctype="multipart/form-data">   <!--enctype="multipart/form-data"  может принимать файлы, в т.ч.картинки-->
             {% csrf_token %}   <!--чтобы отправлять POST-запросы-->
-            {{ contactform.as_ul }}
+            {# contactform.as_ul #}
+            {% for field in contactform %}
+              <p>{{field.label_tag}}</p>
 
-          </div>
+            {% for error in field.errors %}
+              {{error}}
+            {% endfor %}
+              <p>{{field}}</p>
+            {% endfor %}
+        </form>
+
+        </div>
           <div id="success"></div>
           <!-- For success/fail messages -->
           <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
-        </form>
-      </div>
+
+        </div>
 
     </div>
     <!-- /.row -->
-
+{% endblock %}-->
   </div>
   <!-- /.container -->
-{% endblock %}
+
+
+
+
 

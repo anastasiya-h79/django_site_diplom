@@ -7,29 +7,14 @@
 
 {% block content %}
   <!-- Page Content -->
-  <div class="container">
 
-    <div class="row">
-
-      <div class="col-lg-3">
-
-        <h1 class="my-4">VR-Trends</h1>
-        {% for item in category %}
-        <div class="list-group">
-
-          <a href="#" class="list-group-item">{{ item.name }}</a>
-
-        </div>
-        {% endfor %}
-
-      </div>
       <!-- /.col-lg-3 -->
 
       <div class="col-lg-9">
 
         <div class="card mt-4">
           <!-- <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt=""> -->
-          <img src="{{card.image.url}}">
+          <img src="{{card.image.url}}" width="800px">
           <div class="card-body">
             <h3 class="card-title">{{card.name}}</h3>
 
