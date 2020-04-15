@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-{{card.name}}
+{{object.name}}
 {% endblock %}
 
 
@@ -14,12 +14,12 @@
 
         <div class="card mt-4">
           <!-- <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt=""> -->
-          <img src="{{card.image.url}}" width="800px">
+          <img src="{{object.image.url}}" width="800px">
           <div class="card-body">
-            <h3 class="card-title">{{card.name}}</h3>
+            <h3 class="card-title">{{object.name}}</h3>
 
-            <h4>{{card.price}}</h4>
-            <p class="card-text">{{card.description}}</p>
+            <h4>{{object.price}}</h4>
+            <p class="card-text">{{object.description}}</p>
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars
           </div>
