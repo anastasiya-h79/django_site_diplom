@@ -90,7 +90,7 @@ class CardDetailView(DetailView, DateContextMixin):
         :param kwargs:
         :return:
         """
-        self.id = kwargs['id']
+        self.id = kwargs['pk']
         return super().get(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
@@ -103,7 +103,7 @@ class CardDetailView(DetailView, DateContextMixin):
 
 
 class StandaloneListView(ListView):
-    model = Category
+    model = Helmets
     template_name = 'prodgapp/helmets_category.html'
 
     def get(self, request, *args, **kwargs):
@@ -115,11 +115,14 @@ class StandaloneListView(ListView):
         :return:
         """
         self.cat_id = kwargs['pk']
-        return super().get(request, *args, **kwargs)
+        #Helmets.objects.filter(category_id=self.cat_id)
+        #return super().get(request, *args, **kwargs)
+        return Helmets.objects.filter(Helmets, category_id=self.cat_id)
 
     def get_queryset(self):
         """
         Получение данных
         :return:
         """
-        return Category.objects.filter(Category, cat_id=self.id)
+        return Helmets.objects.filter(Helmets, category_id=self.cat_id )
+        #return Category.objects.filter(Category, cat_id=self.cat_id)
