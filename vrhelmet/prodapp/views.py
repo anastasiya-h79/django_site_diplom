@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.views.generic.base import ContextMixin
 from django.shortcuts import get_list_or_404
 
-from .models import Helmets, Category, Carusel
+from .models import Helmets, Category, Carusel, Message
 from .forms import ContactForm, Contacts
 from django.core.mail import send_mail
 
@@ -29,7 +29,7 @@ class DateContextMixin(ContextMixin):
         context = super().get_context_data(*args, **kwargs)
         category = Category.objects.all()
         carus = Carusel.objects.get()
-        context = {'category': category, 'carus': carus}
+        context.update ({'category': category, 'carus': carus})
         return context
 
 
@@ -37,39 +37,57 @@ class MainListView(ListView, DateContextMixin):
     model = Helmets
     template_name = 'prodapp/index.html'
 
-    # def get_queryset(self):
-    #     """
-    #     Получение данных
-    #     :return:
-    #     """
-    #     return Helmets.objects.all()
 
 def contacts(request):
     return render(request, 'prodapp/contact.html')
 
-def contactform(request):
-    if request.method == 'POST':
-        contactform = ContactForm(request.POST)
-        if contactform.is_valid():
-            # Получить данные из форы
-            name = contactform.cleaned_data['name']
-            message = contactform.cleaned_data['message']
-            email = contactform.cleaned_data['email']
+# def contactform(request):
+#     if request.method == 'POST':
+#         contactform = ContactForm(request.POST)
+#         if contactform.is_valid():
+#             # Получить данные из форы
+#             name = contactform.cleaned_data['name']
+#             message = contactform.cleaned_data['message']
+#             email = contactform.cleaned_data['email']
+#
+#             send_mail(
+#                 'Contact message',
+#                 f'Ваше сообщение {message} принято',
+#                 'from@example.com',
+#                 [email],
+#                 fail_silently=True,
+#             )
+#
+#             return HttpResponseRedirect(reverse('prodapp:index'))
+#         else:
+#             return render(request, 'prodapp/contactform.html', context={'contactform': contactform})
+#     else:
+#         contactform = ContactForm()
+#         return render(request, 'prodapp/contactform.html', context={'contactform': contactform})
 
-            send_mail(
-                'Contact message',
-                f'Ваше сообщение {message} принято',
-                'from@example.com',
-                [email],
-                fail_silently=True,
-            )
+class ContactFormCreateView(CreateView, DateContextMixin):
+    fields = '__all__'
+    model = Message
+    success_url = reverse_lazy('prodapp:index')
+    template_name = 'prodapp/contactform.html'
 
-            return HttpResponseRedirect(reverse('prodapp:index'))
-        else:
-            return render(request, 'prodapp/contactform.html', context={'contactform': contactform})
-    else:
-        contactform = ContactForm()
-        return render(request, 'prodapp/contactform.html', context={'contactform': contactform})
+    def post(self, request, *args, **kwargs):
+        """
+        Пришел пост запрос
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        """
+        Метод срабатывает после того как форма валидна
+        :param form:
+        :return:
+        """
+        return super().form_valid(form)
 
 
 # def card(request, id):
@@ -102,9 +120,9 @@ class CardDetailView(DetailView, DateContextMixin):
         return get_object_or_404(Helmets, id=self.id)
 
 
-class StandaloneListView(ListView):
+class StandaloneListView(ListView, DateContextMixin):
     model = Helmets
-    template_name = 'prodgapp/helmets_category.html'
+    template_name = 'prodapp/helmets_category.html'
 
     def get(self, request, *args, **kwargs):
         """
@@ -115,14 +133,14 @@ class StandaloneListView(ListView):
         :return:
         """
         self.cat_id = kwargs['pk']
-        #Helmets.objects.filter(category_id=self.cat_id)
-        #return super().get(request, *args, **kwargs)
-        return Helmets.objects.filter(Helmets, category_id=self.cat_id)
+        #Helmets.objects.filter(category__id=self.cat_id)
+        return super().get(request, *args, **kwargs)
+        #return Helmets.objects.filter(Helmets, category__id=self.cat_id)
 
     def get_queryset(self):
         """
         Получение данных
         :return:
         """
-        return Helmets.objects.filter(Helmets, category_id=self.cat_id )
+        return Helmets.objects.filter(category__id=self.cat_id )
         #return Category.objects.filter(Category, cat_id=self.cat_id)

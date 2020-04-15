@@ -1,6 +1,6 @@
 from django import forms
-from .models import Helmets
-from .models import Category
+from .models import Helmets, Message
+
 
 class Contacts(forms.Form):
     name = forms.CharField(label='Имя')
@@ -9,18 +9,20 @@ class Contacts(forms.Form):
 
 
 class ContactForm(forms.ModelForm):
-    name = forms.CharField(label='Название',
-                           widget=forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}))
-    email = forms.EmailField(label='email',
-                            widget=forms.TextInput(attrs={'placeholder': 'email', 'class': 'form-control'}))
-    message = forms.CharField(label='Введите сообщение', widget=forms.TextInput(attrs={'placeholder': 'email', 'class': 'form-control'}))
+    # name = forms.CharField(label='Имя',
+    #                        widget=forms.TextInput(attrs={'placeholder': 'Name', 'class': 'form-control'}))
+    # email = forms.EmailField(label='Email',
+    #                         widget=forms.TextInput(attrs={'placeholder': 'email', 'class': 'form-control'}))
+    # tel = forms.CharField(label='Телефон',
+    #                       widget=forms.TextInput(attrs={'placeholder': 'phone', 'class': 'form-control'}))
+    # message = forms.CharField(label='Введите сообщение', widget=forms.TextInput(attrs={'placeholder': 'email', 'class': 'form-control'}))
 
     # Чекбоксы
     #tags = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), widget=forms.CheckboxSelectMultiple())
 
 
     class Meta:
-        model = Helmets
+        model = Message
         fields = '__all__'
         # fields = ('name', 'category')
         # exclude = ('category',)

@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
  <!-- Page Heading/Breadcrumbs -->
-    {% block title %}
+{% block title %}
     Контакты
-    {% endblock %}
+{% endblock %}
   <!-- Page Content -->
-  <div class="container">
+  <!-- <div class="container">-->
 
+{% block base-content %}{% endblock %}
 
-
-    {% block content %}
+{% block content %}
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <a href="index.html">Home</a>
@@ -44,44 +44,36 @@
           <abbr title="Hours">H</abbr>: Monday - Friday: 9:00 AM to 5:00 PM
         </p>
       </div>
-    </div>
+
     <!-- /.row -->
-
-    <!-- Contact Form -->
-    <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
-
 
 
 <div class="row">
       <!--<div class="col-lg-8 col-md-10 mx-auto"> -->
         <div class="col-lg-8 col-md-10 mx-auto">  <!--было  <div class="col-lg-8 mb-4 "> чтобы поместить кнопку под форму подключила этот class, взяла у Л-->
         <div class="col-lg-8 mb-4 ">
-          <h3>Send us a Message</h3>
+          <h3>Мы всегда на связи! </h3>
         <form method="post" enctype="multipart/form-data">   <!--enctype="multipart/form-data"  может принимать файлы, в т.ч.картинки-->
-            {% csrf_token %}   <!--чтобы отправлять POST-запросы-->
-            {# contactform.as_ul #}
-            {% for field in contactform %}
-              <p>{{field.label_tag}}</p>
 
-            {% for error in field.errors %}
-              {{error}}
-            {% endfor %}
-              <p>{{field}}</p>
-            {% endfor %}
+            {% csrf_token %}   <!--чтобы отправлять POST-запросы-->
+            {{ form.as_p }}
+
+
         </form>
 
         </div>
           <div id="success"></div>
           <!-- For success/fail messages -->
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">Send Message</button>
+          <button type="submit" class="btn btn-primary" id="sendMessageButton">Отправить</button>
 
         </div>
 
     </div>
     <!-- /.row -->
-{% endblock %}-->
+
   </div>
   <!-- /.container -->
+{% endblock %}
 
 
 

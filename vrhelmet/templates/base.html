@@ -50,9 +50,10 @@
     </div>
   </nav>
 
+
   <!-- Page Content -->
   <div class="container">
-
+  {% block base-content %}
 
     <div class="row">
 
@@ -104,11 +105,12 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+  {% endblock %}
 
-   {% block content %}{% endblock %}
 
-  </div>
+
   <!-- /.container -->
+    {% block content %}{% endblock %}
 
   <!-- Footer -->
   <footer class="py-5 bg-dark">

@@ -39,6 +39,11 @@ class Carusel(models.Model):
 #     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 #     helmet = models.ForeignKey(Helmets, on_delete=models.CASCADE)
 
+class Message(models.Model):
+    name = models.CharField(max_length=64, )
+    text = models.CharField(max_length=300)
+    tel = models.CharField(max_length=16)
+    email = models.EmailField(max_length=100)
 
 
 
