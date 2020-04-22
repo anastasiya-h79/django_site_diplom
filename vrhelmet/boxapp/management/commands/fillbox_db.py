@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from boxapp.models import Methodpay, Delivery, Userinfo, Box
+from boxapp.models import Methodpay, Delivery, Userinfo, Order
 
 
 
