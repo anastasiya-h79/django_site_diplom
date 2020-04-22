@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import ContextMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_list_or_404
 
 from .models import Helmets, Category, Carusel, Message
@@ -28,8 +29,8 @@ class DateContextMixin(ContextMixin):
         """
         context = super().get_context_data(*args, **kwargs)
         category = Category.objects.all()
-        carus = Carusel.objects.get()
-        context.update ({'category': category, 'carus': carus})
+        carus = Carusel.objects.all()
+        context.update({'category': category, 'carus': carus})
         return context
 
 
@@ -38,8 +39,8 @@ class MainListView(ListView, DateContextMixin):
     template_name = 'prodapp/index.html'
 
 
-def contacts(request):
-    return render(request, 'prodapp/contact.html')
+# def contacts(request):
+#     return render(request, 'prodapp/contact.html')
 
 # def contactform(request):
 #     if request.method == 'POST':
@@ -65,11 +66,16 @@ def contacts(request):
 #         contactform = ContactForm()
 #         return render(request, 'prodapp/contactform.html', context={'contactform': contactform})
 
+# форма контактов на странице контактов
 class ContactFormCreateView(CreateView, DateContextMixin):
     fields = '__all__'
     model = Message
     success_url = reverse_lazy('prodapp:index')
     template_name = 'prodapp/contactform.html'
+
+    # def test_func(self):
+    #     return self.request.user.is_manager
+
 
     def post(self, request, *args, **kwargs):
         """
@@ -87,6 +93,8 @@ class ContactFormCreateView(CreateView, DateContextMixin):
         :param form:
         :return:
         """
+        # прописываем текущего пользователя
+        # form.instance.user = self.request.user
         return super().form_valid(form)
 
 
@@ -96,6 +104,7 @@ class ContactFormCreateView(CreateView, DateContextMixin):
 #     category = Category.objects.all()
 #     return render(request, 'prodapp/card.html', context={'category': category, 'card': card})
 
+# страничка отдельного товара
 class CardDetailView(DetailView, DateContextMixin):
     model = Helmets
     template_name = 'prodapp/card.html'
@@ -120,6 +129,7 @@ class CardDetailView(DetailView, DateContextMixin):
         return get_object_or_404(Helmets, id=self.id)
 
 
+# выводим странички с товарами по категориям
 class StandaloneListView(ListView, DateContextMixin):
     model = Helmets
     template_name = 'prodapp/helmets_category.html'

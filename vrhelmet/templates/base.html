@@ -42,8 +42,23 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'prodapp:contactform' %}">Contactform</a>
           </li>
+
+          {% if user.is_authenticated%}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'prodapp:contact' %}">Contact</a>
+            Привет {{user.username}}
+            <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'boxapp:order' %}">Корзина</a>
           </li>
         </ul>
       </div>

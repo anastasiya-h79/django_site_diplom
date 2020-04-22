@@ -1,4 +1,5 @@
 from django.db import models
+from prodapp.models import Helmets
 
 # Create your models here.
 
@@ -10,21 +11,28 @@ class Delivery(models.Model):
     name = models.CharField(max_length=16, verbose_name='Выберите способ доставки')
 
 
-class Userinfo(models.Model):           #на странице оформления заказа в корзине
+#на странице оформления заказа в корзине
+class Userinfo(models.Model):
     name = models.CharField(max_length=32, verbose_name='Имя')
     surname = models.CharField(max_length=32, verbose_name='Фамилия')
     tel = models.IntegerField(verbose_name='Телефон')
     email = models.EmailField(verbose_name='Email')
+    delivery = models.ForeignKey(Delivery, verbose_name='Способ доставки', on_delete=models.CASCADE)
+    comment = models.CharField(max_length=250, verbose_name='Комментарий к заказу')
 
 
-class Box(models.Model):
-    name = models.CharField(max_length=16, unique=True)
-    image = models.ImageField()
-    price = models.PositiveIntegerField()
+class Order(models.Model):
+    #name = models.CharField(max_length=16, unique=True)
+    #image = models.ImageField()
+    #price = models.PositiveIntegerField()
+    product = models.ForeignKey(Helmets, on_delete=models.CASCADE)
     num = models.PositiveIntegerField()      #количество товаров
     sum = models.PositiveIntegerField()      # общая сумма за товары
     deliveryprice = models.PositiveIntegerField() #стоимость доставки
-    totalpurchse = models.PositiveIntegerField()  # итоговая сумма покупки
-    methodpay = models.OneToOneField(Methodpay, on_delete=models.CASCADE)
-    delivery = models.OneToOneField(Delivery, on_delete=models.CASCADE)
-    userinfo = models.OneToOneField(Userinfo, on_delete=models.CASCADE)
+    totalpurchase = models.PositiveIntegerField()  # итоговая сумма покупки
+    methodpay = models.ForeignKey(Methodpay, on_delete=models.CASCADE)
+    delivery = models.ForeignKey(Delivery, on_delete=models.CASCADE)
+    userinfo = models.ForeignKey(Userinfo, on_delete=models.CASCADE)
+
+
+

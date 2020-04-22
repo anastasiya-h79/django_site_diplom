@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'prodapp',
-    'boxapp'
+    'boxapp',
+    'usersapp'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,12 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #письмо отправляется и хранится как файл - не сработало
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 # EMAIL_FILE_PATH = '/tmp/emails'
+
+# Переопределить модели пользователя
+AUTH_USER_MODEL = 'usersapp.SiteUser'
+
+# Переходы
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+# Куда идти на логин (если нет прав, перенаправляет на страницу логина)
+LOGIN_URL = 'users/login/'
