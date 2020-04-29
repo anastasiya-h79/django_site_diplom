@@ -13,17 +13,26 @@
       <div class="col-lg-9">
 
         <div class="card mt-4">
+          {% for image in object.product_images.all %}
           <!-- <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt=""> -->
-          <img src="{{object.image.url}}" width="800px">
+          <img src="{{image}}" width="800px">
+          {% endfor %}
           <div class="card-body">
             <h3 class="card-title">{{object.name}}</h3>
 
-            <h4>{{object.price}}</h4>
+            <h4>{{object.price}} руб./шт.</h4>
             <p class="card-text">{{object.description}}</p>
             <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
             4.0 stars
+            <div class="add-to-card-btn">
+              <button class="btn btn-success">
+                Добавить в корзину
+              </button>
+            </div>
           </div>
         </div>
+
+
         <!-- /.card -->
 
         <div class="card card-outline-secondary my-4">

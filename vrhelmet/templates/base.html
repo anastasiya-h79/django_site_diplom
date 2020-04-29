@@ -120,17 +120,23 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+
+
   {% endblock %}
 
-
+  {% block content %}{% endblock %}
 
   <!-- /.container -->
-    {% block content %}{% endblock %}
+</body>
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-4 bg-dark">
     <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+        </div>
+      </div>
     </div>
     <!-- /.container -->
   </footer>
@@ -139,6 +145,5 @@
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-</body>
 
 </html>

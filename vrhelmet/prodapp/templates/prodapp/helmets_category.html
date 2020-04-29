@@ -13,6 +13,7 @@
           {% for item in object_list %}
 
           <div class="col-lg-4 col-md-6 mb-4">
+
             <div class="card h-100">
 
               <a href="{% url 'prodapp:card' pk=item.pk %}"><img src="{{ item.image.url }}" width="250px"></a>   <!-- img class="card-img-top" "http://placehold.it/700x400" alt=""-->
@@ -20,7 +21,7 @@
                 <h4 class="card-title">
                   <a href="{% url 'prodapp:card' pk=item.pk %}">{{ item.name }}</a>   <!-- id=item.id -->
                 </h4>
-                <h5>{{ item.price }}</h5>
+                <h5>{{ item.price }} р.</h5>
                 <p class="card-text">{{ item.text }}</p>
               </div>
               <div class="card-footer">

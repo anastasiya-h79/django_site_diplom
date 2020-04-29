@@ -6,14 +6,14 @@ from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import get_list_or_404
 
-from .models import Order, Userinfo, Delivery, Methodpay
-from prodapp.views import DateContextMixin, CardDetailView
+from .models import ProductInOrder, UserInfo, Delivery, MethodPay
+from prodapp.views import DateContextMixin
 
 
 # Create your views here.
 # вьюшка для корзины заказа с правами для залогиненного текущего пользователя
 class OrderListView(LoginRequiredMixin, ListView, DateContextMixin):
-    model = Order
+    model = ProductInOrder
     template_name = 'boxapp/order.html'
 
     def test_func(self):
