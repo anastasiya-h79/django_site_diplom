@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_list_or_404
+from django.conf import settings
 
 from .models import Helmets, Category, Carusel, Message, ProductImages
 from .forms import ContactForm, Contacts
@@ -43,7 +44,7 @@ class MainListView(ListView, DateContextMixin):
         Получение данных
         :return:
         """
-        return ProductImages.objects.filter(is_active=True, is_main=True)
+        return ProductImages.objects.filter(is_active=True, is_main=True, product__is_active=True)
 
 #вариант написания вью для главной
 # def index(request):
@@ -122,6 +123,19 @@ class CardDetailView(DetailView, DateContextMixin):
     model = Helmets
     template_name = 'prodapp/card.html'
 
+    # def __init__(self, request):
+    #     """
+    #     Инициализируем корзину
+    #     """
+    #     # текущая сессия
+    #     self.session = request.session
+    #     # корзина с текушей сессии
+    #     cart = self.session.get( settings.CART_SESSION_ID )
+    #     if not cart:
+    #         # save an empty cart in the session
+    #         cart = self.session[settings.CART_SESSION_ID] = {}
+    #     self.cart = cart
+
 
     def get(self, request, *args, **kwargs):
         """
@@ -131,6 +145,12 @@ class CardDetailView(DetailView, DateContextMixin):
         :param kwargs:
         :return:
         """
+        self.session = request.session
+        session_key = self.session.session_key
+        if not session_key:
+            request.session.cycle_key()
+        print(session_key)
+
         self.id = kwargs['pk']
         return super().get(request, *args, **kwargs)
 
@@ -144,7 +164,7 @@ class CardDetailView(DetailView, DateContextMixin):
 
 # выводим странички с товарами по категориям
 class StandaloneListView(ListView, DateContextMixin):
-    model = Helmets
+    model = ProductImages
     template_name = 'prodapp/helmets_category.html'
 
     def get(self, request, *args, **kwargs):
@@ -166,5 +186,7 @@ class StandaloneListView(ListView, DateContextMixin):
         :return:
         """
         #Helmets.category__id = self.product.cat_id
-        return Helmets.objects.filter(category__id=self.cat_id)
+        return ProductImages.objects.filter(product__category__id=self.cat_id)
         #return Category.objects.filter(Category, cat_id=self.cat_id)
+
+

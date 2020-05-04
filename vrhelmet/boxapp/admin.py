@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import MethodPay, Delivery, UserInfo, ProductInOrder, Status, Order
+from .models import MethodPay, Delivery, UserInfo, ProductInOrder, Status, Order, ProductInBasket
+
 
 # Register your models here.
 # добавляем товар в заказ
@@ -47,3 +48,11 @@ class StatusAdmin(admin.ModelAdmin):
         model = Status
 
 admin.site.register(Status, StatusAdmin)
+
+class ProductInBasketAdmin (admin.ModelAdmin):
+    list_display = [field.name for field in ProductInBasket._meta.fields]
+
+    class Meta:
+        model = ProductInBasket
+
+admin.site.register(ProductInBasket, ProductInBasketAdmin)

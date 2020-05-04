@@ -6,10 +6,10 @@ from usersapp.models import SiteUser
 class Category(models.Model):       #этот механизм включает функцию orm, т.е.данные сохраняются в бд
     #создаем поля. из models выбираем тип, в скобках парамерты поля
     name = models.CharField(max_length=100, unique=True)
-    is_activ = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return "%s" % self.name
 
     class Meta:
         verbose_name ='category'
@@ -25,7 +25,7 @@ class Helmets(models.Model):
     price = models.PositiveIntegerField(default=0)
     stock = models.CharField(max_length=16)   #срок поставки
     guarantee = models.CharField(max_length=16, blank=True)
-    sale = models.TextField(blank=True)
+    sale = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     #created = models.DateTimeField(auto_now_add=True, auto_now=False, default=timezone.now)
@@ -63,7 +63,6 @@ class Carusel(models.Model):
     class Meta:
         verbose_name = 'carusel_image'
         verbose_name_plural = 'carusel_images'
-
 
 
 # Заявка со страницы contactform

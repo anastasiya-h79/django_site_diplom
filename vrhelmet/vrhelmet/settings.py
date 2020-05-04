@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'boxapp.context_processors.getting_basket_info',
             ],
         },
     },
@@ -143,3 +144,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 # Куда идти на логин (если нет прав, перенаправляет на страницу логина)
 LOGIN_URL = 'users/login/'
+
+###
+
+CART_SESSION_ID = 'cart'
