@@ -47,7 +47,7 @@ class Command(BaseCommand):
                                category=categ)
 
 
-        #Carusel.objects.create(image1=os.path.join(BASE_DIR, 'media/carusel/11_oPY6oTs.jpeg'),
+        #Carusel.objects.create(image1=os.path.join(BASE_DIR, 'media/carusel/image4.jpeg'),
         # (image2=os.path.join(BASE_DIR, 'media/carusel/11_oPY6oTs_9ORUXiF'),
-                               #image3=os.path.join(BASE_DIR, 'media/carusel/11_oPY6oTs_JlbJeW6.jpeg'))
+                               #image3=os.path.join(BASE_DIR, 'media/carusel/image2.jpeg'))
 

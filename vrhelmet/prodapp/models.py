@@ -3,13 +3,14 @@ from django.db import models
 from usersapp.models import SiteUser
 
 
+
 class Category(models.Model):       #этот механизм включает функцию orm, т.е.данные сохраняются в бд
     #создаем поля. из models выбираем тип, в скобках парамерты поля
     name = models.CharField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return "%s" % self.name
+        return self.name
 
     class Meta:
         verbose_name ='category'
@@ -32,7 +33,7 @@ class Helmets(models.Model):
     #updated = models.DateTimeField(auto_now_add=False, auto_now=True, default=timezone.now)
 
     def __str__(self):
-        return "%s, %s" % (self.price, self.name)
+        return "%s, %s, %s" % (self.price, self.name, self.category)
 
     class Meta:
         verbose_name = 'product'
@@ -59,6 +60,7 @@ class Carusel(models.Model):
     image1 = models.ImageField(upload_to='carusel', null=True, blank=True)
     image2 = models.ImageField(upload_to='carusel', null=True, blank=True)
     image3 = models.ImageField(upload_to='carusel', null=True, blank=True)
+    image4 = models.ImageField( upload_to='carusel', null=True, blank=True )
 
     class Meta:
         verbose_name = 'carusel_image'

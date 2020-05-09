@@ -30,7 +30,7 @@ class DateContextMixin(ContextMixin):
         """
         context = super().get_context_data(*args, **kwargs)
         category = Category.objects.all()
-        carus = Carusel.objects.get()
+        carus = Carusel.objects.first()
         context.update({'category': category, 'carus': carus})
         return context
 

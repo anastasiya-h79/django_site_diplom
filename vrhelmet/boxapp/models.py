@@ -32,9 +32,9 @@ class Delivery(models.Model):
 class UserInfo(models.Model):
     name = models.CharField(max_length=32, verbose_name='Имя')
     surname = models.CharField(max_length=32, verbose_name='Фамилия')
-    tel = models.IntegerField(verbose_name='Телефон')
+    tel = models.IntegerField(verbose_name='Телефон', blank=True, null=True, default=None)
     email = models.EmailField(verbose_name='Email')
-    delivery = models.ForeignKey(Delivery, verbose_name='Способ доставки', on_delete=models.CASCADE)
+    delivery = models.ForeignKey(Delivery, verbose_name='Способ доставки', on_delete=models.CASCADE, blank=True, null=True, default=None)
     comment = models.CharField(max_length=250, verbose_name='Комментарий к заказу')
 
     def __str__(self):
@@ -83,9 +83,6 @@ class Order(models.Model):
 
 
 class ProductInOrder(models.Model):
-    #name = models.CharField(max_length=16, unique=True)
-    #image = models.ImageField()
-    #price = models.PositiveIntegerField()
     order = models.ForeignKey(Order, blank=True, null=True, default=None, on_delete=models.CASCADE)
     product = models.ForeignKey(Helmets, blank=True, null=True, default=None, on_delete=models.CASCADE)
     nmb = models.PositiveIntegerField()      #количество товаров
@@ -100,7 +97,7 @@ class ProductInOrder(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return "%s %s" % (self.product.name, self.deliveryprice)
+        return "%s" % self.product.name
 
     class Meta:
         verbose_name ='product'
@@ -110,8 +107,7 @@ class ProductInOrder(models.Model):
     def save(self, *args, **kwargs):
         price_per_item = self.product.price
         self.price_per_item = price_per_item  #в поле текущей цены записали текущую цену
-        self.total_price = self.nmb * price_per_item + self.deliveryprice
-
+        self.total_price = self.nmb * self.price_per_item #+ self.deliveryprice
         super(ProductInOrder, self).save(*args, **kwargs)
 
 
@@ -135,13 +131,13 @@ class ProductInBasket(models.Model):
     product = models.ForeignKey(Helmets, blank=True, null=True, default=None, on_delete=models.CASCADE)
     nmb = models.IntegerField(default=1)
     price_per_item = models.PositiveIntegerField(default=0)
-    total_price = models.PositiveIntegerField(default=0)#price*nmb
+    total_price = models.PositiveIntegerField(default=0)    #price*nmb
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
     def __str__(self):
-        return "%s" % self.product.name
+        return self.product.name
 
     class Meta:
         verbose_name = 'Товар в корзине'
