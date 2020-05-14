@@ -2,7 +2,18 @@ from django.utils import timezone
 from django.db import models
 from usersapp.models import SiteUser
 
+class ActiveManager(models.Manager):
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        return all_objects.filter(is_active=True)
 
+class IsActiveMixin(models.Model):
+    objects = models.Manager()
+    active_objects = ActiveManager()
+    is_active = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
 
 class Category(models.Model):       #этот механизм включает функцию orm, т.е.данные сохраняются в бд
     #создаем поля. из models выбираем тип, в скобках парамерты поля
@@ -17,7 +28,7 @@ class Category(models.Model):       #этот механизм включает 
         verbose_name_plural = 'categories'
 
 
-class Helmets(models.Model):
+class Helmets(IsActiveMixin):
     name = models.CharField(max_length=64, unique=True)
     #artikul = models.PositiveIntegerField(unique=True)
     text = models.CharField(max_length=84, default='Новое поколение игровых гарнитур')
@@ -28,7 +39,7 @@ class Helmets(models.Model):
     guarantee = models.CharField(max_length=16, blank=True)
     sale = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=True)
+    #is_active = models.BooleanField(default=True)
     #created = models.DateTimeField(auto_now_add=True, auto_now=False, default=timezone.now)
     #updated = models.DateTimeField(auto_now_add=False, auto_now=True, default=timezone.now)
 
@@ -40,10 +51,12 @@ class Helmets(models.Model):
         verbose_name_plural = 'products'
 
 
-class ProductImages(models.Model):
+class ProductImages(IsActiveMixin):
+    objects = models.Manager()
+    active_objects = ActiveManager()
     product = models.ForeignKey(Helmets, blank=True, null=True, default=None, on_delete=models.CASCADE, related_name='product_images')
     image = models.ImageField(upload_to='helmets/')
-    is_active = models.BooleanField(default=True)
+    #is_active = models.BooleanField(default=False)
     is_main = models.BooleanField(default=False)
     #created = models.DateTimeField(auto_now_add=True, auto_now=False, default=timezone.now)
     #updated = models.DateTimeField(auto_now_add=False, auto_now=True, default=timezone.now)

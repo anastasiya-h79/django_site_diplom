@@ -16,10 +16,15 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 
+def set_active(modeladmin, request, queryset):
+    queryset.update(is_active=True)
+set_active.short_description = "добавить на сайт"
 
 class HelmetsAdmin(admin.ModelAdmin):
     search_fields = ['name']
     inlines = [ProductImagesInline]
+    list_display = ['name', 'category', 'is_active']
+    actions = [set_active]
 
     class Meta:
         model = Helmets
@@ -35,6 +40,8 @@ admin.site.register(Message)
 
 class ProductImagesAdmin(admin.ModelAdmin):
     search_fields = ['name']
+    list_display = ['id', 'is_active']
+    actions = [set_active]
 
     class Meta:
         model = ProductImages

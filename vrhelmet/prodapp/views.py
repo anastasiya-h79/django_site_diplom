@@ -5,6 +5,7 @@ from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_list_or_404
 from django.conf import settings
+from django.db import models
 
 from .models import Helmets, Category, Carusel, Message, ProductImages
 from .forms import ContactForm, Contacts
@@ -38,13 +39,14 @@ class DateContextMixin(ContextMixin):
 class MainListView(ListView, DateContextMixin):
     model = ProductImages
     template_name = 'prodapp/index.html'
+    paginate_by = 3
 
     def get_queryset(self):
         """
         Получение данных
         :return:
         """
-        return ProductImages.objects.filter(is_active=True, is_main=True, product__is_active=True)
+        return ProductImages.active_objects.filter(is_main=True, product__is_active=True)
 
 #вариант написания вью для главной
 # def index(request):
@@ -87,17 +89,9 @@ class ContactFormCreateView(CreateView, DateContextMixin):
     success_url = reverse_lazy('prodapp:index')
     template_name = 'prodapp/contactform.html'
 
-    # def test_func(self):
-    #     return self.request.user.is_manager
-
-
     def post(self, request, *args, **kwargs):
         """
         Пришел пост запрос
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
         """
         return super().post(request, *args, **kwargs)
 
@@ -123,27 +117,9 @@ class CardDetailView(DetailView, DateContextMixin):
     model = Helmets
     template_name = 'prodapp/card.html'
 
-    # def __init__(self, request):
-    #     """
-    #     Инициализируем корзину
-    #     """
-    #     # текущая сессия
-    #     self.session = request.session
-    #     # корзина с текушей сессии
-    #     cart = self.session.get( settings.CART_SESSION_ID )
-    #     if not cart:
-    #         # save an empty cart in the session
-    #         cart = self.session[settings.CART_SESSION_ID] = {}
-    #     self.cart = cart
-
-
     def get(self, request, *args, **kwargs):
         """
         Метод обработки get запроса
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
         """
         self.session = request.session
         session_key = self.session.session_key
@@ -170,10 +146,6 @@ class StandaloneListView(ListView, DateContextMixin):
     def get(self, request, *args, **kwargs):
         """
         Метод обработки get запроса
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
         """
         self.cat_id = kwargs['pk']
         #Helmets.objects.filter(category__id=self.cat_id)
