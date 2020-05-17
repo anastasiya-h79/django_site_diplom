@@ -41,12 +41,15 @@ class MainListView(ListView, DateContextMixin):
     template_name = 'prodapp/index.html'
     paginate_by = 3
 
+
     def get_queryset(self):
         """
         Получение данных
         :return:
         """
-        return ProductImages.active_objects.filter(is_main=True, product__is_active=True)
+        #pk = ProductImages.get_product_pk
+        return ProductImages.active_objects.select_related('product').filter(is_main=True, product__is_active=True)
+
 
 #вариант написания вью для главной
 # def index(request):
@@ -148,17 +151,14 @@ class StandaloneListView(ListView, DateContextMixin):
         Метод обработки get запроса
         """
         self.cat_id = kwargs['pk']
-        #Helmets.objects.filter(category__id=self.cat_id)
         return super().get(request, *args, **kwargs)
-        #return Helmets.objects.filter(Helmets, category__id=self.cat_id)
 
     def get_queryset(self):
         """
         Получение данных
         :return:
         """
-        #Helmets.category__id = self.product.cat_id
-        return ProductImages.objects.filter(product__category__id=self.cat_id)
-        #return Category.objects.filter(Category, cat_id=self.cat_id)
+        return ProductImages.main_objects.select_related('product').filter(product__category__id=self.cat_id)
+
 
 

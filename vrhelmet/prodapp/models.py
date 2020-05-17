@@ -1,11 +1,18 @@
 from django.utils import timezone
 from django.db import models
+from django.utils.functional import cached_property
+
 from usersapp.models import SiteUser
 
 class ActiveManager(models.Manager):
     def get_queryset(self):
         all_objects = super().get_queryset()
         return all_objects.filter(is_active=True)
+
+class MainManager(models.Manager):
+    def get_queryset(self):
+        all_objects = super().get_queryset()
+        return all_objects.filter(is_main=True)
 
 class IsActiveMixin(models.Model):
     objects = models.Manager()
@@ -34,6 +41,7 @@ class Helmets(IsActiveMixin):
     text = models.CharField(max_length=84, default='Новое поколение игровых гарнитур')
     description = models.TextField(blank=True)
     #image = models.ImageField(upload_to='helmets/', null=True, blank=True)
+    #product_images = models.ForeignKey(ProductImages, null=True, blank=True)
     price = models.PositiveIntegerField(default=0)
     stock = models.CharField(max_length=16)   #срок поставки
     guarantee = models.CharField(max_length=16, blank=True)
@@ -54,6 +62,7 @@ class Helmets(IsActiveMixin):
 class ProductImages(IsActiveMixin):
     objects = models.Manager()
     active_objects = ActiveManager()
+    main_objects = MainManager()
     product = models.ForeignKey(Helmets, blank=True, null=True, default=None, on_delete=models.CASCADE, related_name='product_images')
     image = models.ImageField(upload_to='helmets/')
     #is_active = models.BooleanField(default=False)
@@ -63,6 +72,11 @@ class ProductImages(IsActiveMixin):
 
     def __str__(self):
         return "%s" % self.id
+
+    # @cached_property
+    # def get_product_pk(self, pk):
+    #     pk = Helmets.objects.get(pk=pk)
+    #     return pk
 
     class Meta:
         verbose_name = 'image'
