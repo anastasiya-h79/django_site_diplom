@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from django import forms
 from .models import Helmets, Message
 
@@ -23,6 +25,6 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Message
-        fields = '__all__'
-        # fields = ('name', 'category')
-        # exclude = ('category',)
+        #fields = '__all__'
+        #fields = ('name', 'tel', 'email', 'text')
+        exclude = ['user', ]

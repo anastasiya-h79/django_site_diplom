@@ -4,8 +4,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_list_or_404
+from django.conf import settings
+from django.db import models
 
-from .models import Helmets, Category, Carusel, Message
+from .models import Helmets, Category, Carusel, Message, ProductImages
 from .forms import ContactForm, Contacts
 from django.core.mail import send_mail
 
@@ -29,15 +31,32 @@ class DateContextMixin(ContextMixin):
         """
         context = super().get_context_data(*args, **kwargs)
         category = Category.objects.all()
-        carus = Carusel.objects.all()
+        carus = Carusel.objects.first()
         context.update({'category': category, 'carus': carus})
         return context
 
 
 class MainListView(ListView, DateContextMixin):
-    model = Helmets
+    model = ProductImages
     template_name = 'prodapp/index.html'
+    paginate_by = 3
 
+
+    def get_queryset(self):
+        """
+        Получение данных
+        :return:
+        """
+        #pk = ProductImages.get_product_pk
+        return ProductImages.active_objects.select_related('product').filter(is_main=True, product__is_active=True)
+
+
+#вариант написания вью для главной
+# def index(request):
+#     products_images = ProductImages.objects.filter(is_active=True, is_main=True, product__is_active=True)
+#     products_images_phones = products_images.filter(product__category__id=1)
+#     products_images_laptops = products_images.filter(product__category__id=2)
+#     return render(request, 'prodapp/index.html', locals())
 
 # def contacts(request):
 #     return render(request, 'prodapp/contact.html')
@@ -73,17 +92,9 @@ class ContactFormCreateView(CreateView, DateContextMixin):
     success_url = reverse_lazy('prodapp:index')
     template_name = 'prodapp/contactform.html'
 
-    # def test_func(self):
-    #     return self.request.user.is_manager
-
-
     def post(self, request, *args, **kwargs):
         """
         Пришел пост запрос
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
         """
         return super().post(request, *args, **kwargs)
 
@@ -112,11 +123,13 @@ class CardDetailView(DetailView, DateContextMixin):
     def get(self, request, *args, **kwargs):
         """
         Метод обработки get запроса
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
         """
+        self.session = request.session
+        session_key = self.session.session_key
+        if not session_key:
+            request.session.cycle_key()
+        print(session_key)
+
         self.id = kwargs['pk']
         return super().get(request, *args, **kwargs)
 
@@ -128,29 +141,24 @@ class CardDetailView(DetailView, DateContextMixin):
         """
         return get_object_or_404(Helmets, id=self.id)
 
-
 # выводим странички с товарами по категориям
 class StandaloneListView(ListView, DateContextMixin):
-    model = Helmets
+    model = ProductImages
     template_name = 'prodapp/helmets_category.html'
 
     def get(self, request, *args, **kwargs):
         """
         Метод обработки get запроса
-        :param request:
-        :param args:
-        :param kwargs:
-        :return:
         """
         self.cat_id = kwargs['pk']
-        #Helmets.objects.filter(category__id=self.cat_id)
         return super().get(request, *args, **kwargs)
-        #return Helmets.objects.filter(Helmets, category__id=self.cat_id)
 
     def get_queryset(self):
         """
         Получение данных
         :return:
         """
-        return Helmets.objects.filter(category__id=self.cat_id )
-        #return Category.objects.filter(Category, cat_id=self.cat_id)
+        return ProductImages.main_objects.select_related('product').filter(product__category__id=self.cat_id)
+
+
+

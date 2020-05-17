@@ -8,38 +8,59 @@
 
   <!-- Page Content блок по категориям и карусель удалила в базовый шаблон-->
 
-
+  <div class="container">
         <div class="row">
           {% for item in object_list %}
-
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
+              <a href="{% url 'prodapp:card' pk=item.product.pk %}"><img src="{{ item.image.url }}" width="250px"></a>
 
-              <a href="{% url 'prodapp:card' pk=item.pk %}"><img src="{{ item.image.url }}" width="250px"></a>   <!-- img class="card-img-top" "http://placehold.it/700x400" alt=""-->
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{% url 'prodapp:card' pk=item.pk %}">{{ item.name }}</a>   <!-- id=item.id -->
+                  <a href="{% url 'prodapp:card' pk=item.product.pk %}">{{ item.product.name }}</a>   <!-- id=item.id -->
                 </h4>
-                <h5>{{ item.price }}</h5>
-                <p class="card-text">{{ item.text }}</p>
+                <h5>{{ item.product.price }}р.</h5>
+                <p class="card-text">{{ item.product.text|truncatechars_html:70 }}</p>
+                  <div class="add-to-card-btn">
+                    <button class="btn btn-success">
+                    Добавить в корзину
+                    </button>
+                  </div>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
               </div>
             </div>
           </div>
+
           {% endfor %}
-
-
         </div>
         <!-- /.row -->
 
       </div>
       <!-- /.col-lg-9 -->
 
+      <div class="pagination">
+        <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+        </span>
+      </div>
+
+
     </div>
     <!-- /.row -->
-
   </div>
   <!-- /.container -->
 
