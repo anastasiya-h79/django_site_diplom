@@ -33,7 +33,7 @@ class Command(BaseCommand):
                                price=70900,
                                stock='Много',
                                guarantee='2 года',
-                               sale='15%',
+                               sale='15',
                                text='Новое поколение игровых гарнитур на базе ПК',
                                category=categ)
 
@@ -42,7 +42,7 @@ class Command(BaseCommand):
                                price=66900,
                                stock='Под заказ',
                                guarantee='12 месяцев',
-                               sale='10%',
+                               sale='10',
                                text='Максимально четкое изображение, даже при низком ФПС',
                                category=categ)
 

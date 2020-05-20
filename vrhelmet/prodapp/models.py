@@ -45,9 +45,9 @@ class Helmets(IsActiveMixin):
     price = models.PositiveIntegerField(default=0)
     stock = models.CharField(max_length=16)   #срок поставки
     guarantee = models.CharField(max_length=16, blank=True)
-    sale = models.IntegerField(default=0)
+    sale = models.CharField(max_length=3, default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    #is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
     #created = models.DateTimeField(auto_now_add=True, auto_now=False, default=timezone.now)
     #updated = models.DateTimeField(auto_now_add=False, auto_now=True, default=timezone.now)
 
