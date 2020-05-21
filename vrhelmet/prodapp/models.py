@@ -41,7 +41,6 @@ class Helmets(IsActiveMixin):
     text = models.CharField(max_length=84, default='Новое поколение игровых гарнитур')
     description = models.TextField(blank=True)
     #image = models.ImageField(upload_to='helmets/', null=True, blank=True)
-    #product_images = models.ForeignKey(ProductImages, null=True, blank=True)
     price = models.PositiveIntegerField(default=0)
     stock = models.CharField(max_length=16)   #срок поставки
     guarantee = models.CharField(max_length=16, blank=True)

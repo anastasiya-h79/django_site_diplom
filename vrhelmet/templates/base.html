@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <body lang="en">
 
@@ -68,7 +69,7 @@
 
         {% if user.is_authenticated%}
         <li class="nav-item">
-          Привет {{user.username}}
+          Привет,  <a href="{% url 'users:profile' pk=user.pk %}"> {{user.username}}</a>
           <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
         </li>
         {% else %}
