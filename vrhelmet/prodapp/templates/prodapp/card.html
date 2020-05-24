@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 {{object.name}}
@@ -46,27 +47,35 @@
       <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active">
-                <a href="#description" aria-controls="home" role="tab" data-toggle="tab">
+                  <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Описание</a>
+                <!--<a href="#description" aria-controls="home" role="tab" data-toggle="tab">
                   Описание
-                </a>
+                </a>-->
               </li>
               <li role="presentation">
-                <a href="#delivery" aria-controls="profile" role="tab" data-toggle="tab">
+                  <a class="nav-link active" data-toggle="tab" href="#komplekt" role="tab">Комплектация</a>
+                <!--<a href="#delivery" aria-controls="profile" role="tab" data-toggle="tab">
                   Доставка
-                </a>
+                </a>-->
               </li>
-              <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-              <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+              <li role="presentation"> <!--<a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a>-->
+              <a class="nav-link active" data-toggle="tab" href="#charact" role="tab">Характеристики</a>
+              </li>
+              <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+                  <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Требования</a>
+              </li>-->
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content product-description-tabs">
-              <div role="tabpanel" class="tab-pane active" id="description">
+                <div class="tab-pane active" id="home" role="tabpanel">{{ object.description }}</div>
+              <!--<div role="tabpanel" class="tab-pane active" id="description">
                 {{ object.description }}
-              </div>
-              <div role="tabpanel" class="tab-pane" id="delivery">
+              </div>-->
+                <div class="tab-pane" id="komplekt" role="tabpanel">Как мы делаем доставку</div>
+              <!--<div role="tabpanel" class="tab-pane" id="delivery">
                 <h3>Как мы делаем доставку</h3>
-              </div>
+              </div>-->
               <div role="tabpanel" class="tab-pane" id="messages">...</div>
               <div role="tabpanel" class="tab-pane" id="settings">...</div>
             </div>
