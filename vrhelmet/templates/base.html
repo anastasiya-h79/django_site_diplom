@@ -17,7 +17,7 @@
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'  %}" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="{% static 'css/shop-homepage.css' %}" rel="stylesheet">
+  <link href="{% static 'css/shop-homepage.css/' %}" rel="stylesheet">
 
 </head>
 
@@ -42,11 +42,24 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'prodapp:contactform' %}">Contactform</a>
         </li>
+        {% if user.is_authenticated%}
+        <li class="nav-item">
+          Привет,  <a href="{% url 'users:profile' pk=user.pk %}"> {{user.username}}</a>
+          <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+        </li>
+        {% endif %}
         <ul class="nav navbar-nav navbar-right">
           <li class="nav-item">
-            <!--<a class="nav-link" href="{% url 'boxapp:order' %}">Корзина</a>-->
             <div class="basket-container">
-              <a href="{% url 'boxapp:order' %}">Корзина <span id="basket_total_amount"></span><span id="basket_total_nmb">
+              <a href="{% url 'boxapp:checkout' %}">Корзина <span id="basket_total_amount"></span><span id="basket_total_nmb">
                    {% if products_total_nmb %}
                             ({{ products_total_nmb }})
                         {% else %}
@@ -67,27 +80,13 @@
           </li>
         </ul>
 
-        {% if user.is_authenticated%}
-        <li class="nav-item">
-          Привет,  <a href="{% url 'users:profile' pk=user.pk %}"> {{user.username}}</a>
-          <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
-        </li>
-        {% endif %}
-
       </ul>
     </div>
   </div>
 </nav>
-
-
+<br>
+<br>
+<br>
 <!-- Page Content -->
 <div class="container">
   {% block base-content %}

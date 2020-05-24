@@ -1,8 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils import timezone
 
 from prodapp.models import Helmets
+from usersapp.models import SiteUser
 
 # Create your models here.
 
@@ -60,8 +62,10 @@ class Status(models.Model):
 
 
 class Order(models.Model):
-    total_price = models.DecimalField(max_digits=10, decimal_places=2,
-                                       default=0)  # total price for all products in order
+    user = models.ForeignKey(SiteUser, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    total_price = models.PositiveIntegerField(default=0)
+    #total_price = models.DecimalField(max_digits=6, decimal_places=2,
+     #                                  default=0)  # total price for all products in order
     customer_name = models.CharField(max_length=64, blank=True, null=True, default=None)
     customer_email = models.EmailField(blank=True, null=True, default=None)
     customer_phone = models.CharField(max_length=48, blank=True, null=True, default=None)
@@ -85,14 +89,15 @@ class Order(models.Model):
 class ProductInOrder(models.Model):
     order = models.ForeignKey(Order, blank=True, null=True, default=None, on_delete=models.CASCADE)
     product = models.ForeignKey(Helmets, blank=True, null=True, default=None, on_delete=models.CASCADE)
-    nmb = models.PositiveIntegerField()      #количество товаров
-    #sum = models.PositiveIntegerField()      # общая сумма за товары
+    nmb = models.PositiveIntegerField(default=1)      #количество товаров
+    #price_per_item = models.DecimalField( max_digits=6, decimal_places=2, default=0 )
     price_per_item = models.PositiveIntegerField(default=0)  #текущая цена
+    #total_price = models.DecimalField( max_digits=6, decimal_places=2, default=0 )
     total_price = models.PositiveIntegerField(default=0)  # price*nmb
-    deliveryprice = models.PositiveIntegerField() #стоимость доставки
+    #deliveryprice = models.PositiveIntegerField() #стоимость доставки
     #totalpurchase = models.PositiveIntegerField()  # итоговая сумма покупки
-    methodpay = models.ForeignKey(MethodPay, on_delete=models.CASCADE)
-    delivery = models.ForeignKey(Delivery, on_delete=models.CASCADE)
+    methodpay = models.ForeignKey(MethodPay, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    delivery = models.ForeignKey(Delivery, blank=True, null=True, default=None, on_delete=models.CASCADE)
     #userinfo = models.ForeignKey(UserInfo, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
 
@@ -130,6 +135,8 @@ class ProductInBasket(models.Model):
     order = models.ForeignKey(Order, blank=True, null=True, default=None, on_delete=models.CASCADE)
     product = models.ForeignKey(Helmets, blank=True, null=True, default=None, on_delete=models.CASCADE)
     nmb = models.IntegerField(default=1)
+    #price_per_item = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    #total_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)  # price*nmb
     price_per_item = models.PositiveIntegerField(default=0)
     total_price = models.PositiveIntegerField(default=0)    #price*nmb
     is_active = models.BooleanField(default=True)

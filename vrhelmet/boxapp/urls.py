@@ -1,14 +1,14 @@
 from django.urls import path
-from django.conf.urls import url
 from boxapp import views
 
 app_name = 'boxapp'
 
 urlpatterns = [
-    path('order/', views.OrderListView.as_view(), name='order'),
+    #path('checkout/', views.OrderListView.as_view(), name='order'),
     path('basket_adding/', views.basket_adding, name='basket_adding'),
     #url(r'^basket_adding/$', views.basket_adding, name='basket_adding'),
-
+    path('checkout/', views.checkout, name='checkout'),
+    path('thanks/', views.checkout, name='thanks'),
     ##path('contact/', views.contacts, name='contact'),
 
 

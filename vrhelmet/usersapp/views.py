@@ -61,11 +61,9 @@ def update_token(request):
 def update_token_ajax(request):
     user = request.user
     # если уже есть
-    if user.auth_token:
-        # обновить
+    try:
         user.auth_token.delete()
         token = Token.objects.create(user=user)
-    else:
-        # создать
+    except:
         token = Token.objects.create(user=user)
     return JsonResponse({'key': token.key})
