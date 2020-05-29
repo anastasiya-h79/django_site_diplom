@@ -3,9 +3,9 @@ from .models import *
 
 #Register your models here.
 class SiteUserAdmin(admin.ModelAdmin):
-    #list_display = ["name", "tel"]
+    list_display = ['username', 'phone']
     #list_filter = ['name', ]
-    search_fields = ['username', 'email']
+    search_fields = ['username', 'phone']  #username
 
     class Meta:
         model = SiteUser

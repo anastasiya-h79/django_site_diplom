@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rest_framework',
     'rest_framework.authtoken',
+    'crispy_forms',
     #добавляем в самый низ:
     'django_cleanup.apps.CleanupConfig'
 ]
@@ -174,3 +175,4 @@ REST_FRAMEWORK = {
 
     ]
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

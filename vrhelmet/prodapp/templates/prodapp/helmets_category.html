@@ -19,10 +19,12 @@
                   <a href="{% url 'prodapp:card' pk=item.product.pk %}">{{ item.product.name }}</a>   <!-- id=item.id -->
                 </h4>
                 <h5>{{ item.product.price }} р.</h5>
-                <p class="card-text">{{ item.product.text }}</p>
+                <p class="card-text">{{ item.product.text|truncatechars_html:70 }}</p>
                   <div class="add-to-card-btn">
-                    <button class="btn btn-success">
-                    Добавить в корзину
+                    <button type="submit" id="submit_btn" class="btn btn-success btn-buy">
+                        <a href="{% url 'prodapp:card' pk=item.product.pk %}" style="color: white">
+                                    Подробнее</a>
+
                     </button>
                   </div>
               </div>

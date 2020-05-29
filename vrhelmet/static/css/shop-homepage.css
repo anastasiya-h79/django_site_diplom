@@ -3,6 +3,8 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
+
+
 .body {
   padding-top: 56px;
   text-align: center;
@@ -26,7 +28,7 @@
 }
 .basket-container{
     position: relative;
-    width: 250px;
+    width: 200px;
     padding: 15px 10px;
 }
 
@@ -34,7 +36,7 @@
     position: absolute;
     top: 50px;
     width: 100%;
-    background-color: #55e093;
+    background-color: #b7cac0;
     z-index: 10;
     padding: 10px;
 }
@@ -42,3 +44,42 @@
 .form-error{
     color: red;
 }
+
+.text-right {
+    text-align: right !important;
+}
+
+.call_btn {
+    width: 140px;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 2px;
+    line-height: 16px;
+
+.top_h_left_p {
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #ef2037;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+}
+.top_h_left_abtn_a {
+    color: #ef2037;
+    font-weight: 700;
+    font-size: 16px;
+}
+.b {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+
+}
+.list-group {
+    display: block;
+    border: 1px solid #404040;
+    line-height: 20px;
+    padding: 10px 5px;
+    text-align: center;
+    color: #404040;

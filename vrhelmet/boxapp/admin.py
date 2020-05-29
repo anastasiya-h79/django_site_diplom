@@ -10,6 +10,7 @@ class ProductInOrderInline(admin.TabularInline):
 
 
 class OrderAdmin(admin.ModelAdmin):
+    #list_display = ['customer_phone']
     search_fields = ['customer_name', 'customer_email', 'status__name']
     inlines = [ProductInOrderInline]
 

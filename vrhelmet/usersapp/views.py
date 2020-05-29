@@ -26,7 +26,9 @@ class DateContextMixin(ContextMixin):
         return context
 # Create your views here.
 class UserLoginView(LoginView, DateContextMixin):
+    model = SiteUser
     template_name = 'usersapp/login.html'
+
 
 class UserCreateView(CreateView, DateContextMixin):
     model = SiteUser
