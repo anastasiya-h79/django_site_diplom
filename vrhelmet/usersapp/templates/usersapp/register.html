@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
   Магазин - Регистрация
 {% endblock %}
@@ -7,22 +9,21 @@
 {% block content %}
 <div class="container">
 <div class="row">
-<div class="col-lg-4 col-md-6 mb-4">
-<form method="post">
-      {% csrf_token %}
-      <!--{{ form.as_p }}-->
+
+<form class="form-horizontal" method="post">{% csrf_token %}
     <div class="form-group">
-        <label for="exampleInputEmail1">Ваш email</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Введите пароль</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <div>
+        <div class="col-lg-9">
+            {{ form|crispy }}
+
         <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        </div>
     </div>
 </form>
+<style>
+     #hint_id_username, #hint_id_phone, #hint_id_password1, #hint_id_password2  {
+         display: none;
+     }
+</style>
 </div>
 </div>
 </div>

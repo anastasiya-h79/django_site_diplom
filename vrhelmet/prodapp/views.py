@@ -3,13 +3,10 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.shortcuts import get_list_or_404
-from django.conf import settings
-from django.db import models
+
 
 from .models import Helmets, Category, Carusel, Message, ProductImages
-from .forms import ContactForm, Contacts
-from django.core.mail import send_mail
+
 
 # Create your views here.
 
@@ -39,7 +36,7 @@ class DateContextMixin(ContextMixin):
 class MainListView(ListView, DateContextMixin):
     model = ProductImages
     template_name = 'prodapp/index.html'
-    paginate_by = 3
+    paginate_by = 6
 
 
     def get_queryset(self):

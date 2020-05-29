@@ -3,9 +3,9 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class SiteUser(AbstractUser):
-    first_name = models.CharField(max_length=48, blank=True, null=True, default=None)
+    first_name = models.CharField(max_length=48, blank=True, null=True, default=None, verbose_name='Ваше имя')
     #email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=48, blank=True, null=True, default=None)
+    phone = models.CharField(max_length=48, blank=True, null=True, default=None, verbose_name='Ваш телефон')
     is_manager = models.BooleanField(default=False)
 
 class Carusel(models.Model):

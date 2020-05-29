@@ -1,10 +1,6 @@
-from django.shortcuts import render
+
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.views.generic.base import ContextMixin
-from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
-from django.shortcuts import get_list_or_404
+
 
 from .models import Order, ProductInOrder, UserInfo, Delivery, MethodPay
 from prodapp.views import DateContextMixin
@@ -14,7 +10,7 @@ from .models import ProductInBasket
 from .forms import CheckoutContactForm
 from usersapp.models import SiteUser
 
-from django.contrib.auth.models import User
+
 
 # Create your views here.
 # вьюшка для корзины заказа с правами для залогиненного текущего пользователя
@@ -79,7 +75,7 @@ def checkout(request):
             name = data.get("name", "3423453")
             phone = data["phone"]
             #email = data.get("email", "test@test.com")
-            user, created = SiteUser.objects.get_or_create(username=phone, defaults={"first_name": name})
+            user, created = SiteUser.objects.get_or_create(username=name, defaults={"first_name": name}, phone=phone)
 
 
             order = Order.objects.create(user=user, customer_name=name, customer_phone=phone, status_id=1)
