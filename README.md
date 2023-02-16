@@ -6,4 +6,7 @@
 
 ![Снимок экрана 2023-02-16 в 14 53 48](https://user-images.githubusercontent.com/48830679/219361812-2d2b492e-3881-4984-be74-1dc25865aa55.png)
 
-![Д3 001](https://user-images.githubusercontent.com/48830679/219361692-37e7284b-7312-4f35-97ae-2fc1ebda3556.jpeg)
+![Д6 001](https://user-images.githubusercontent.com/48830679/219361977-b5722478-229f-4264-9f70-68d1921edf61.jpeg)
+![Д7 001](https://user-images.githubusercontent.com/48830679/219362020-acaafd4d-42aa-4fce-a173-44f3e73c2cfc.jpeg)
+![Д10 001](https://user-images.githubusercontent.com/48830679/219362070-099bcf1b-89f8-46d2-b0a8-37ee065629c5.jpeg)
+
