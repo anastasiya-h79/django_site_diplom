@@ -4,4 +4,6 @@
 Бэкэнд содержит приложения: по работе с пользователями, по работе с корзиной, MVC-app, инструкции. Тестирование проходило с помощью TestCase. 
 Оптимизация сайта проходит с помощью django-debug-toolbar. У сайта есть api, реализованное на основе django-rest-framework.
 
+![Снимок экрана 2023-02-16 в 14 53 48](https://user-images.githubusercontent.com/48830679/219361812-2d2b492e-3881-4984-be74-1dc25865aa55.png)
+
 ![Д3 001](https://user-images.githubusercontent.com/48830679/219361692-37e7284b-7312-4f35-97ae-2fc1ebda3556.jpeg)
