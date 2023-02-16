@@ -8,5 +8,5 @@
 
 ![Д6 001](https://user-images.githubusercontent.com/48830679/219361977-b5722478-229f-4264-9f70-68d1921edf61.jpeg)
 ![Д7 001](https://user-images.githubusercontent.com/48830679/219362020-acaafd4d-42aa-4fce-a173-44f3e73c2cfc.jpeg)
-![Д10 001](https://user-images.githubusercontent.com/48830679/219362070-099bcf1b-89f8-46d2-b0a8-37ee065629c5.jpeg)
+
 
